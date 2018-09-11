@@ -17,7 +17,8 @@ from COMPS.Data import QueryCriteria
 Client.login('https://comps.idmod.org')
 
 if __name__ == "__main__":
-    exp_list = [''
+    exp_list = ['7bf92112-2db2-e811-a2c0-c4346bcb7275', '4d832701-63b5-e811-a2c0-c4346bcb7275',
+				'020b39aa-65b5-e811-a2c0-c4346bcb7275', '31d35117-78b5-e811-a2c0-c4346bcb7275'
                 ]
     for exp in exp_list:
         tmp = get_experiment_by_id(exp, query_criteria=QueryCriteria().select_children(["tags"]))

@@ -32,10 +32,10 @@ cb.add_reports(BaseAgeHistReport(type='ReportPluginAgeAtInfectionHistogram',
 if __name__ == "__main__":
 
     SetupParser.init('HPC')
-    BaseInfs = [1.0, 1.5, 2.0, 2.5]
-    MCV1Covs = [0, 0.25, 0.5, 0.75, 1.0]
-    MCV2Covs = [0, 0.25, 0.5, 0.75]
-    SIACovs = [0, 0.25, 0.5, 0.75]
+    BaseInfs = [2.0]
+    MCV1Covs = [0.5, 0.75, 1.0]
+    MCV2Covs = [0, 0.5, 0.75, 1.0]
+    SIACovs = [-1, 0, 0.5, 0.75]
     MCV1Days = [90, 120, 150, 180, 210, 240, 270, 300, 330, 365]
     mAbProfs = ['Long', 'Short', 'Mix']
 
@@ -43,10 +43,10 @@ if __name__ == "__main__":
     mod_fns = []
     for combo in allCombs:
         names = ['Base_Infectivity', 'META_MCV1Cov', 'META_campaign_coverage', 'Run_Number', 'META_MCV1Days',
-                'META_MaB_Profile', 'META_MCV2Frac', 'META_Timesteps']
+                'META_MaB_Profile', 'META_MCV2Frac', 'META_Timesteps', 'Base_Population_Scale_Factor']
 
         values = [combo[0], combo[1], combo[2], random.randint(1, 1e6), combo[3],
-                combo[4], combo[5], 3.0]
+                combo[4], combo[5], 3.0, 1.0]
 
         mod_fns.append(ModFn(sample_point_fn, names, values))
 

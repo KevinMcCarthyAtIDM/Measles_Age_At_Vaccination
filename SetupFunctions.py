@@ -41,6 +41,8 @@ def Setup_Base_Parameters():
     params_dict['Maternal_Sigmoid_SteepFac'] = 50
     params_dict['Maternal_Sigmoid_SusInit'] = 0.05
     params_dict['Simulation_Duration'] = 9125
+    params_dict['Minimum_End_Time'] = 9125
+
     return params_dict
 
 
@@ -84,7 +86,14 @@ def MetaParameterHandler(cb, param, value, tags):
         tags['Simulation_Timestep'] = value
         tags['Spatial_Output_Days_To_Accumulate'] = 30/value
     if param == 'META_campaign_coverage':
-        for event in cb.campaign.Events:
-            if event.Event_Name == 'SIAs - SIAOnly Group':
-                event.Event_Coordinator_Config.Demographic_Coverage = value
+        if value == -1:
+            for event in cb.campaign.Events:
+                if event.Event_Name.startswith('SIA'):
+                    event.Event_Coordinator_Config.Demographic_Coverage = 0
+        else:
+            for event in cb.campaign.Events:
+                if event.Event_Name.startswith('SIA'):
+                    event.Event_Coordinator_Config.Demographic_Coverage = 1.0
+                if event.Event_Name == 'SIAs - SIAOnly Group':
+                    event.Event_Coordinator_Config.Demographic_Coverage = value
     return tags
